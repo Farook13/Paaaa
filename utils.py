@@ -1,3 +1,4 @@
+from pyrogram import Client as Bot
 import logging
 from pyrogram.errors import InputUserDeactivated, UserNotParticipant, FloodWait, UserIsBlocked, PeerIdInvalid
 from info import *
@@ -45,6 +46,15 @@ class temp(object):
     U_NAME = None
     B_NAME = None
     SETTINGS = {}
+    
+  
+async def get_chat_member(bot: Bot, chat_id: int, user_id: int):
+    try:
+        chat_member = await bot.get_chat_member(chat_id, user_id)
+        return chat_member
+    except TelegramError as e:
+        logger.error(f"Error fetching chat member: {e}")
+        return None
 
 async def is_subscribed(bot, query):
     try:
